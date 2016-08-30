@@ -39,17 +39,25 @@ function handleUser(account, steemPerMVest) {
     // Get the first account in the returned array 
     // We only searched for one account, but you can search multiple
     var vest = account[0].vesting_shares;
+    
+    // Trim and Convert Into A Number
     vest = Number(vest.substring(0, vest.length - 6));
-
+    
+    // Formula For Calculating Steem Power Dynamically (with 3 decimals)
     var SP = ((vest * steemPerMVest)/1000000).toFixed(3);
 
+   // Output Current Steem Power
     console.log("My Steem Power: " + SP);
 };
 
-// Data handler
+// Steem Per Million Vest Data Handler
 function handleData(steem_per_mvest) {
     var steemPerMVest = steem_per_mvest;
+    // Pass The Steem Per Million Vest Into 
+    // The Get Account Function
     getAccount(handleUser, steemPerMVest);
 };
 
+// Call out first function to get the 
+// steem per million vest
 getSteemPerMvest(handleData);
